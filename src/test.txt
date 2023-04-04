@@ -1,0 +1,133 @@
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class HelloWorld extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+    StackPane root = new StackPane(); //créer un conteneur
+
+    @Override
+    public void start(Stage primaryStage) {
+
+        initWidgets();
+        addWidgetsToSceneV1();
+        primaryStage.setTitle("Cours"); //titre de la fenêtre
+
+        primaryStage.setScene(new Scene(root, 800, 650)); //mettre le conteneur comme contenu de la fenêtre.
+        primaryStage.show();
+    }
+
+    private void addWidgetsToSceneV1() {
+        // Conteneurs pour chaque matière
+        FlowPane flowPaneAnglais = new FlowPane();
+        flowPaneAnglais.getChildren().addAll(
+                new Label("Anglais"), // Label
+                new TextField(), // Champ de texte
+                new RadioButton("1"), new RadioButton("2"), new RadioButton("3") // Boutons radio
+        );
+
+        FlowPane flowPaneMath = new FlowPane();
+        flowPaneMath.getChildren().addAll(
+                new Label("Math"), new TextField(),
+                new RadioButton("1"), new RadioButton("2"), new RadioButton("3")
+        );
+
+        FlowPane flowPaneInfo = new FlowPane();
+        flowPaneInfo.getChildren().addAll(
+                new Label("Informatique"), new TextField(),
+                new RadioButton("1"), new RadioButton("2"), new RadioButton("3")
+        );
+
+        FlowPane flowPaneGeo = new FlowPane();
+        flowPaneGeo.getChildren().addAll(
+                new Label("Géographie"), new TextField(),
+                new RadioButton("1"), new RadioButton("2"), new RadioButton("3")
+        );
+
+        // Conteneur principal
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(
+                flowPaneAnglais, flowPaneMath, flowPaneInfo, flowPaneGeo, // Conteneurs pour chaque matière
+                new Label("Optionnel"), new ComboBox<>( // Combobox
+                        FXCollections.observableArrayList("Latin", "Grec", "Sport")
+                ),
+                new TextField(), // Champ de texte pour l'optionnel
+                new CheckBox("Prendre en considération les coefficients"), // Case à cocher
+                new Button("Moyenne"), // Bouton
+                new Label("Valeur") // Label
+        );
+        root.getChildren().addAll(vbox);
+    }
+
+    private void initWidgets() {
+        Label labNom = new Label("Anglais"); //créer un label
+        TextField txtNom = new TextField(); //créer un champ de texte
+
+        ToggleGroup group = new ToggleGroup();
+        RadioButton rb1 = new RadioButton("1");
+        rb1.setToggleGroup(group);
+        rb1.setSelected(true);
+        RadioButton rb2 = new RadioButton("2");
+        rb2.setToggleGroup(group);
+        RadioButton rb3 = new RadioButton("3");
+        rb3.setToggleGroup(group);
+
+        //-------------------------------------------------\\
+        Label labNom1 = new Label("Math"); //créer un label
+        TextField txtNom1 = new TextField();
+
+        ToggleGroup group1 = new ToggleGroup();
+        RadioButton Math1 = new RadioButton("1");
+        Math1.setToggleGroup(group1);
+        Math1.setSelected(true);
+        RadioButton Math2 = new RadioButton("2");
+        Math2.setToggleGroup(group1);
+        RadioButton Math3 = new RadioButton("3");
+        Math3.setToggleGroup(group1);
+
+        //-------------------------------------------------\\
+        Label labNom2 = new Label("Informatique"); //créer un label
+        TextField txtNom2 = new TextField();
+
+        ToggleGroup group2 = new ToggleGroup();
+        RadioButton Info1 = new RadioButton("1");
+        Info1.setToggleGroup(group2);
+        Info1.setSelected(true);
+        RadioButton Info2 = new RadioButton("2");
+        Info2.setToggleGroup(group2);
+        RadioButton Info3 = new RadioButton("3");
+        Info3.setToggleGroup(group2);
+
+        //-------------------------------------------------\\
+        Label labNom3 = new Label("Géographie"); //créer un label
+        TextField txtNom3 = new TextField();
+
+        ToggleGroup group3 = new ToggleGroup();
+        RadioButton Geo1 = new RadioButton("1");
+        Geo1.setToggleGroup(group3);
+        Geo1.setSelected(true);
+        RadioButton Geo2 = new RadioButton("2");
+        Geo2.setToggleGroup(group3);
+        RadioButton Geo3 = new RadioButton("3");
+        Geo3.setToggleGroup(group3);
+        //-------------------------------------------------\\
+        ComboBox<String> combo = new ComboBox<>();
+        combo.getItems().addAll(
+                "Latin",
+                "Grec",
+                "Sport"
+        );
+        TextField txtNom4 = new TextField();
+        Label labNom4 = new Label("Optionnel"); //créer un label
+        CheckBox cb1 = new CheckBox("Prendre en considération les coefficients");
+        Button btn = new Button("Moyenne");
+        Label labNom5 = new Label("Valeur"); //créer un label
+    }
+}
