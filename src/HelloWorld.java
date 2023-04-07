@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -27,12 +28,15 @@ public class HelloWorld extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Image image = new Image("file:icone-fenetre.gif");
         root = new StackPane(); // Initialisation du conteneur
         initWidgets();
         addWidgetsToSceneV2();
         addListener();
-        primaryStage.setTitle("Cours"); // Titre de la fenêtre
-        primaryStage.setScene(new Scene(vbox, 450, 200)); // Mettre le conteneur comme contenu de la fenêtre.
+        primaryStage.setTitle("[IHM]"); // Titre de la fenêtre
+        primaryStage.getIcons().add(image);
+        primaryStage.setScene(new Scene(vbox, 450, 270)); // Mettre le conteneur comme contenu de la fenêtre.
+        primaryStage.setResizable(false); // Fenêtre non redimensionnable
         primaryStage.show();
     }
 
@@ -154,6 +158,7 @@ public class HelloWorld extends Application {
         gridPane.setAlignment(Pos.CENTER);
         vbox.setAlignment(Pos.CENTER);
         gridPane.setMaxWidth(400);
+        gridPane.maxHeight(270);
         hbox4.setAlignment(Pos.CENTER);
 //        root.getChildren().addAll(gridPane, flowPaneBtn, hbox4, vbox);
     }
