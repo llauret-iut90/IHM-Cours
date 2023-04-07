@@ -1,26 +1,35 @@
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class HelloWorld extends Application {
+    // Déclaration des champs de classe
+    private StackPane root;
+    private ComboBox<String> combo;
+    private TextField txtNom, txtNom1, txtNom2, txtNom3, txtNom4;
+    private ToggleGroup group, group1, group2, group3;
+    private RadioButton rb1, rb2, rb3, Math1, Math2, Math3, Info1, Info2, Info3, Geo1, Geo2, Geo3;
+    private CheckBox cb1;
+    private Button btn;
+    private VBox vbox;
+
     public static void main(String[] args) {
         launch(args);
     }
-    StackPane root = new StackPane(); //créer un conteneur
 
     @Override
     public void start(Stage primaryStage) {
-
+        root = new StackPane(); // Initialisation du conteneur
         initWidgets();
-        addWidgetsToSceneV1();
-        primaryStage.setTitle("Cours"); //titre de la fenêtre
-
-        primaryStage.setScene(new Scene(root, 800, 650)); //mettre le conteneur comme contenu de la fenêtre.
+        addWidgetsToSceneV2();
+        primaryStage.setTitle("Cours"); // Titre de la fenêtre
+        primaryStage.setScene(new Scene(vbox, 400, 250)); // Mettre le conteneur comme contenu de la fenêtre.
         primaryStage.show();
     }
 
@@ -29,105 +38,168 @@ public class HelloWorld extends Application {
         FlowPane flowPaneAnglais = new FlowPane();
         flowPaneAnglais.getChildren().addAll(
                 new Label("Anglais"), // Label
-                new TextField(), // Champ de texte
-                new RadioButton("1"), new RadioButton("2"), new RadioButton("3") // Boutons radio
+                txtNom, // Champ de texte
+                rb1, rb2, rb3 // Boutons radio
         );
+        flowPaneAnglais.setStyle("-fx-background-color: #0000ff");
+        flowPaneAnglais.setAlignment(javafx.geometry.Pos.CENTER);
 
         FlowPane flowPaneMath = new FlowPane();
         flowPaneMath.getChildren().addAll(
-                new Label("Math"), new TextField(),
-                new RadioButton("1"), new RadioButton("2"), new RadioButton("3")
+                new Label("Math"), txtNom1,
+                Math1, Math2, Math3
         );
+        flowPaneMath.setStyle("-fx-background-color: #ff0000");
+        flowPaneMath.setAlignment(javafx.geometry.Pos.CENTER);
 
         FlowPane flowPaneInfo = new FlowPane();
         flowPaneInfo.getChildren().addAll(
-                new Label("Informatique"), new TextField(),
-                new RadioButton("1"), new RadioButton("2"), new RadioButton("3")
+                new Label("Informatique"), txtNom2,
+                Info1, Info2, Info3
         );
+        flowPaneInfo.setStyle("-fx-background-color: #00ff00");
+        flowPaneInfo.setAlignment(javafx.geometry.Pos.CENTER);
 
         FlowPane flowPaneGeo = new FlowPane();
         flowPaneGeo.getChildren().addAll(
-                new Label("Géographie"), new TextField(),
-                new RadioButton("1"), new RadioButton("2"), new RadioButton("3")
+                new Label("Géographie"), txtNom3,
+                Geo1, Geo2, Geo3
         );
+        flowPaneGeo.setStyle("-fx-background-color: #00ffff");
+        flowPaneGeo.setAlignment(javafx.geometry.Pos.CENTER);
+
+        FlowPane flowPaneOptionnel = new FlowPane();
+        flowPaneOptionnel.getChildren().addAll(
+                combo, txtNom4, new Label("Optionnel")
+        );
+        flowPaneOptionnel.setAlignment(javafx.geometry.Pos.CENTER);
+
+        FlowPane flowPaneBtn = new FlowPane();
+        flowPaneBtn.getChildren().addAll(
+                cb1
+        );
+        flowPaneBtn.setAlignment(javafx.geometry.Pos.CENTER);
+
+        FlowPane flowPaneBtn1 = new FlowPane();
+        flowPaneBtn1.getChildren().addAll(
+                btn, new Label("Valeur")
+        );
+        flowPaneBtn1.setAlignment(javafx.geometry.Pos.CENTER);
 
         // Conteneur principal
         VBox vbox = new VBox();
         vbox.getChildren().addAll(
-                flowPaneAnglais, flowPaneMath, flowPaneInfo, flowPaneGeo, // Conteneurs pour chaque matière
-                new Label("Optionnel"), new ComboBox<>( // Combobox
-                        FXCollections.observableArrayList("Latin", "Grec", "Sport")
-                ),
-                new TextField(), // Champ de texte pour l'optionnel
-                new CheckBox("Prendre en considération les coefficients"), // Case à cocher
-                new Button("Moyenne"), // Bouton
-                new Label("Valeur") // Label
+                flowPaneAnglais, flowPaneMath, flowPaneInfo, flowPaneGeo, flowPaneOptionnel, flowPaneBtn, flowPaneBtn1
         );
         root.getChildren().addAll(vbox);
     }
 
-    private void initWidgets() {
-        Label labNom = new Label("Anglais"); //créer un label
-        TextField txtNom = new TextField(); //créer un champ de texte
+    private void addWidgetsToSceneV2() {
+        GridPane gridPane = new GridPane();
+        gridPane.add(new Label("Anglais"), 0, 0);
+        gridPane.add(txtNom, 1, 0);
 
-        ToggleGroup group = new ToggleGroup();
-        RadioButton rb1 = new RadioButton("1");
+        HBox hBox = new HBox();
+        hBox.getChildren().addAll(rb1, rb2, rb3);
+        gridPane.add(hBox, 2, 0);
+
+        gridPane.add(new Label("Math"), 0, 1);
+        gridPane.add(txtNom1, 1, 1);
+
+        HBox hBox1 = new HBox();
+        hBox1.getChildren().addAll(Math1, Math2, Math3);
+        gridPane.add(hBox1, 2, 1);
+
+        gridPane.add(new Label("Informatique"), 0, 2);
+        gridPane.add(txtNom2, 1, 2);
+
+        HBox hBox2 = new HBox();
+        hBox2.getChildren().addAll(Info1, Info2, Info3);
+        gridPane.add(hBox2, 2, 2);
+
+        gridPane.add(new Label("Géographie"), 0, 3);
+        gridPane.add(txtNom3, 1, 3);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+
+
+        HBox hBox3 = new HBox();
+        hBox3.getChildren().addAll(Geo1, Geo2, Geo3);
+        gridPane.add(hBox3, 2, 3);
+
+        gridPane.add(combo, 0, 4);
+        gridPane.add(txtNom4, 1, 4);
+        gridPane.add(new Label("Optionnel"), 2, 4);
+
+
+        FlowPane flowPaneBtn = new FlowPane();
+        flowPaneBtn.getChildren().addAll(
+                cb1
+        );
+        flowPaneBtn.setAlignment(javafx.geometry.Pos.CENTER);
+
+        HBox hbox4 = new HBox();
+        hbox4.getChildren().addAll(
+                btn, new Label("Valeur")
+        );
+
+        vbox = new VBox();
+        vbox.getChildren().addAll(
+                gridPane, flowPaneBtn, hbox4
+        );
+
+        gridPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        gridPane.setAlignment(Pos.CENTER);
+        vbox.setAlignment(Pos.CENTER);
+        gridPane.setMaxWidth(370);
+        hbox4.setAlignment(Pos.CENTER);
+//        root.getChildren().addAll(gridPane, flowPaneBtn, hbox4, vbox);
+    }
+
+    private void initWidgets() {
+        txtNom = new TextField();
+        group = new ToggleGroup();
+        rb1 = new RadioButton("1");
         rb1.setToggleGroup(group);
         rb1.setSelected(true);
-        RadioButton rb2 = new RadioButton("2");
+        rb2 = new RadioButton("2");
         rb2.setToggleGroup(group);
-        RadioButton rb3 = new RadioButton("3");
+        rb3 = new RadioButton("3");
         rb3.setToggleGroup(group);
 
-        //-------------------------------------------------\\
-        Label labNom1 = new Label("Math"); //créer un label
-        TextField txtNom1 = new TextField();
-
-        ToggleGroup group1 = new ToggleGroup();
-        RadioButton Math1 = new RadioButton("1");
+        txtNom1 = new TextField();
+        group1 = new ToggleGroup();
+        Math1 = new RadioButton("1");
         Math1.setToggleGroup(group1);
         Math1.setSelected(true);
-        RadioButton Math2 = new RadioButton("2");
+        Math2 = new RadioButton("2");
         Math2.setToggleGroup(group1);
-        RadioButton Math3 = new RadioButton("3");
+        Math3 = new RadioButton("3");
         Math3.setToggleGroup(group1);
 
-        //-------------------------------------------------\\
-        Label labNom2 = new Label("Informatique"); //créer un label
-        TextField txtNom2 = new TextField();
-
-        ToggleGroup group2 = new ToggleGroup();
-        RadioButton Info1 = new RadioButton("1");
+        txtNom2 = new TextField();
+        group2 = new ToggleGroup();
+        Info1 = new RadioButton("1");
         Info1.setToggleGroup(group2);
         Info1.setSelected(true);
-        RadioButton Info2 = new RadioButton("2");
+        Info2 = new RadioButton("2");
         Info2.setToggleGroup(group2);
-        RadioButton Info3 = new RadioButton("3");
+        Info3 = new RadioButton("3");
         Info3.setToggleGroup(group2);
 
-        //-------------------------------------------------\\
-        Label labNom3 = new Label("Géographie"); //créer un label
-        TextField txtNom3 = new TextField();
-
-        ToggleGroup group3 = new ToggleGroup();
-        RadioButton Geo1 = new RadioButton("1");
+        txtNom3 = new TextField();
+        group3 = new ToggleGroup();
+        Geo1 = new RadioButton("1");
         Geo1.setToggleGroup(group3);
         Geo1.setSelected(true);
-        RadioButton Geo2 = new RadioButton("2");
+        Geo2 = new RadioButton("2");
         Geo2.setToggleGroup(group3);
-        RadioButton Geo3 = new RadioButton("3");
+        Geo3 = new RadioButton("3");
         Geo3.setToggleGroup(group3);
-        //-------------------------------------------------\\
-        ComboBox<String> combo = new ComboBox<>();
-        combo.getItems().addAll(
-                "Latin",
-                "Grec",
-                "Sport"
-        );
-        TextField txtNom4 = new TextField();
-        Label labNom4 = new Label("Optionnel"); //créer un label
-        CheckBox cb1 = new CheckBox("Prendre en considération les coefficients");
-        Button btn = new Button("Moyenne");
-        Label labNom5 = new Label("Valeur"); //créer un label
+
+        combo = new ComboBox<>(FXCollections.observableArrayList("Latin", "Grec", "Sport"));
+        combo.setValue("Latin");
+        txtNom4 = new TextField();
+        cb1 = new CheckBox("Prendre en considération les coefficients");
+        btn = new Button("Moyenne");
     }
 }

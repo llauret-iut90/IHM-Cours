@@ -1,5 +1,7 @@
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -28,8 +30,9 @@ public class HelloWorld extends Application {
         root = new StackPane(); // Initialisation du conteneur
         initWidgets();
         addWidgetsToSceneV2();
+        addListener();
         primaryStage.setTitle("Cours"); // Titre de la fenêtre
-        primaryStage.setScene(new Scene(vbox, 400, 250)); // Mettre le conteneur comme contenu de la fenêtre.
+        primaryStage.setScene(new Scene(vbox, 450, 200)); // Mettre le conteneur comme contenu de la fenêtre.
         primaryStage.show();
     }
 
@@ -150,7 +153,7 @@ public class HelloWorld extends Application {
         gridPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         gridPane.setAlignment(Pos.CENTER);
         vbox.setAlignment(Pos.CENTER);
-        gridPane.setMaxWidth(370);
+        gridPane.setMaxWidth(400);
         hbox4.setAlignment(Pos.CENTER);
 //        root.getChildren().addAll(gridPane, flowPaneBtn, hbox4, vbox);
     }
@@ -201,5 +204,56 @@ public class HelloWorld extends Application {
         txtNom4 = new TextField();
         cb1 = new CheckBox("Prendre en considération les coefficients");
         btn = new Button("Moyenne");
+    }
+
+    private void addListener(){
+        btn.setOnAction(event -> {
+            double moyenne = 0;
+            if (rb1.isSelected()) {
+                moyenne += 1;
+            } else if (rb2.isSelected()) {
+                moyenne += 2;
+            } else if (rb3.isSelected()) {
+                moyenne += 3;
+            }
+            if (Math1.isSelected()) {
+                moyenne += 1;
+            } else if (Math2.isSelected()) {
+                moyenne += 2;
+            } else if (Math3.isSelected()) {
+                moyenne += 3;
+            }
+            if (Info1.isSelected()) {
+                moyenne += 1;
+            } else if (Info2.isSelected()) {
+                moyenne += 2;
+            } else if (Info3.isSelected()) {
+                moyenne += 3;
+            }
+            if (Geo1.isSelected()) {
+                moyenne += 1;
+            } else if (Geo2.isSelected()) {
+                moyenne += 2;
+            } else if (Geo3.isSelected()) {
+                moyenne += 3;
+            }
+            if (cb1.isSelected()) {
+                if (combo.getValue().equals("Latin")) {
+                    moyenne += 2;
+                } else if (combo.getValue().equals("Grec")) {
+                    moyenne += 2;
+                } else if (combo.getValue().equals("Sport")) {
+                    moyenne += 1;
+                }
+                moyenne = moyenne / 5;
+            } else {
+                moyenne = moyenne / 4;
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Moyenne");
+            alert.setHeaderText("Moyenne");
+            alert.setContentText("Votre moyenne est de " + moyenne);
+            alert.showAndWait();
+        });
     }
 }
