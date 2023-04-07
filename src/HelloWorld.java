@@ -1,10 +1,11 @@
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class HelloWorld extends Application {
@@ -16,6 +17,7 @@ public class HelloWorld extends Application {
     private RadioButton rb1, rb2, rb3, Math1, Math2, Math3, Info1, Info2, Info3, Geo1, Geo2, Geo3;
     private CheckBox cb1;
     private Button btn;
+    private VBox vbox;
 
     public static void main(String[] args) {
         launch(args);
@@ -25,9 +27,9 @@ public class HelloWorld extends Application {
     public void start(Stage primaryStage) {
         root = new StackPane(); // Initialisation du conteneur
         initWidgets();
-        addWidgetsToSceneV1();
+        addWidgetsToSceneV2();
         primaryStage.setTitle("Cours"); // Titre de la fenêtre
-        primaryStage.setScene(new Scene(root, 400, 250)); // Mettre le conteneur comme contenu de la fenêtre.
+        primaryStage.setScene(new Scene(vbox, 400, 250)); // Mettre le conteneur comme contenu de la fenêtre.
         primaryStage.show();
     }
 
@@ -80,22 +82,77 @@ public class HelloWorld extends Application {
 
         FlowPane flowPaneBtn1 = new FlowPane();
         flowPaneBtn1.getChildren().addAll(
-                btn
+                btn, new Label("Valeur")
         );
         flowPaneBtn1.setAlignment(javafx.geometry.Pos.CENTER);
-
-        FlowPane flowPaneBtn2 = new FlowPane();
-        flowPaneBtn2.getChildren().addAll(
-                new Label("Valeur")
-        );
-        flowPaneBtn2.setAlignment(javafx.geometry.Pos.CENTER);
 
         // Conteneur principal
         VBox vbox = new VBox();
         vbox.getChildren().addAll(
-                flowPaneAnglais, flowPaneMath, flowPaneInfo, flowPaneGeo, flowPaneOptionnel, flowPaneBtn, flowPaneBtn1, flowPaneBtn2
+                flowPaneAnglais, flowPaneMath, flowPaneInfo, flowPaneGeo, flowPaneOptionnel, flowPaneBtn, flowPaneBtn1
         );
         root.getChildren().addAll(vbox);
+    }
+
+    private void addWidgetsToSceneV2() {
+        GridPane gridPane = new GridPane();
+        gridPane.add(new Label("Anglais"), 0, 0);
+        gridPane.add(txtNom, 1, 0);
+
+        HBox hBox = new HBox();
+        hBox.getChildren().addAll(rb1, rb2, rb3);
+        gridPane.add(hBox, 2, 0);
+
+        gridPane.add(new Label("Math"), 0, 1);
+        gridPane.add(txtNom1, 1, 1);
+
+        HBox hBox1 = new HBox();
+        hBox1.getChildren().addAll(Math1, Math2, Math3);
+        gridPane.add(hBox1, 2, 1);
+
+        gridPane.add(new Label("Informatique"), 0, 2);
+        gridPane.add(txtNom2, 1, 2);
+
+        HBox hBox2 = new HBox();
+        hBox2.getChildren().addAll(Info1, Info2, Info3);
+        gridPane.add(hBox2, 2, 2);
+
+        gridPane.add(new Label("Géographie"), 0, 3);
+        gridPane.add(txtNom3, 1, 3);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+
+
+        HBox hBox3 = new HBox();
+        hBox3.getChildren().addAll(Geo1, Geo2, Geo3);
+        gridPane.add(hBox3, 2, 3);
+
+        gridPane.add(combo, 0, 4);
+        gridPane.add(txtNom4, 1, 4);
+        gridPane.add(new Label("Optionnel"), 2, 4);
+
+
+        FlowPane flowPaneBtn = new FlowPane();
+        flowPaneBtn.getChildren().addAll(
+                cb1
+        );
+        flowPaneBtn.setAlignment(javafx.geometry.Pos.CENTER);
+
+        HBox hbox4 = new HBox();
+        hbox4.getChildren().addAll(
+                btn, new Label("Valeur")
+        );
+
+        vbox = new VBox();
+        vbox.getChildren().addAll(
+                gridPane, flowPaneBtn, hbox4
+        );
+
+        gridPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        gridPane.setAlignment(Pos.CENTER);
+        vbox.setAlignment(Pos.CENTER);
+        gridPane.setMaxWidth(370);
+        hbox4.setAlignment(Pos.CENTER);
+//        root.getChildren().addAll(gridPane, flowPaneBtn, hbox4, vbox);
     }
 
     private void initWidgets() {
