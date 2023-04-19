@@ -55,6 +55,7 @@ public class HelloWorld extends Application {
 
         primaryStage.setScene(new Scene(vbox, 450, 270)); // Mettre le conteneur comme contenu de la fenêtre.
         primaryStage.setResizable(false); // Fenêtre non redimensionnable
+        primaryStage.setAlwaysOnTop(true); // Fenêtre toujours au premier plan
         primaryStage.show();
     }
 
@@ -224,7 +225,7 @@ public class HelloWorld extends Application {
 
         combo = new ComboBox<>(FXCollections.observableArrayList("Latin", "Grec", "Sport"));
         combo.setValue("Latin");
-        txtNom4 = new TextField("0");
+        txtNom4 = new TextField();
         cb1 = new CheckBox("Prendre en considération les coefficients");
         btn = new Button("Moyenne");
     }
@@ -232,81 +233,174 @@ public class HelloWorld extends Application {
     private void addListener() {
         btn.setOnAction(event -> {
             double moyenne = 0;
+            int count = 0;
+
+            double anglais = Double.parseDouble(txtNom.getText());
+            double math = Double.parseDouble(txtNom1.getText());
+            double info = Double.parseDouble(txtNom2.getText());
+            double geo = Double.parseDouble(txtNom3.getText());
+            double autre = Double.parseDouble(txtNom4.getText());
 
             if (!txtNom.getText().isEmpty()) {
-                double anglais = Double.parseDouble(txtNom.getText());
-                if (cb1.isSelected()) {
-                    if (rb1.isSelected()) {
+                if ((anglais >= 0 && anglais <= 20)) {
+                    if (cb1.isSelected()) {
+                        if (rb1.isSelected()) {
+                            moyenne += anglais;
+                        } else if (rb2.isSelected()) {
+                            moyenne += 2 * anglais;
+                        } else if (rb3.isSelected()) {
+                            moyenne += 3 * anglais;
+                        }
+                        count += 1;
+                    } else {
                         moyenne += anglais;
-                    } else if (rb2.isSelected()) {
-                        moyenne += 2 * anglais;
-                    } else if (rb3.isSelected()) {
-                        moyenne += 3 * anglais;
+                        count += 1;
                     }
-                } else moyenne += anglais;
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Erreur");
+                    alert.setContentText("La note de l'anglais doit être comprise entre 0 et 20");
+                    alert.initOwner(btn.getScene().getWindow());
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText("Erreur");
+                alert.setContentText("Vous n'avez pas rentré de note pour l'anglais");
+                alert.initOwner(btn.getScene().getWindow());
+                alert.showAndWait();
             }
 
             if (!txtNom1.getText().isEmpty()) {
-                double math = Double.parseDouble(txtNom1.getText());
-                if (cb1.isSelected()) {
-                    if (Math1.isSelected()) {
+                if ((math >= 0 && math <= 20)) {
+                    if (cb1.isSelected()) {
+                        if (Math1.isSelected()) {
+                            moyenne += math;
+                        } else if (Math2.isSelected()) {
+                            moyenne += 2 * math;
+                        } else if (Math3.isSelected()) {
+                            moyenne += 3 * math;
+                        }
+                        count += 1;
+                    } else {
                         moyenne += math;
-                    } else if (Math2.isSelected()) {
-                        moyenne += 2 * math;
-                    } else if (Math3.isSelected()) {
-                        moyenne += 3 * math;
+                        count += 1;
                     }
-                } else moyenne += math;
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Erreur");
+                    alert.setContentText("La note de mathématiques doit être comprise entre 0 et 20");
+                    alert.initOwner(btn.getScene().getWindow());
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText("Erreur");
+                alert.setContentText("Vous n'avez pas rentré de note pour les mathématiques");
+                alert.initOwner(btn.getScene().getWindow());
+                alert.showAndWait();
             }
 
             if (!txtNom2.getText().isEmpty()) {
-                double info = Double.parseDouble(txtNom2.getText());
-                if (cb1.isSelected()) {
-                    if (Info1.isSelected()) {
+                if ((info >= 0 && info <= 20)) {
+                    if (cb1.isSelected()) {
+                        if (Info1.isSelected()) {
+                            moyenne += info;
+                        } else if (Info2.isSelected()) {
+                            moyenne += 2 * info;
+                        } else if (Info3.isSelected()) {
+                            moyenne += 3 * info;
+                        }
+                        count += 1;
+                    } else {
                         moyenne += info;
-                    } else if (Info2.isSelected()) {
-                        moyenne += 2 * info;
-                    } else if (Info3.isSelected()) {
-                        moyenne += 3 * info;
+                        count += 1;
                     }
-                } else moyenne += info;
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Erreur");
+                    alert.setContentText("La note d'informatique doit être comprise entre 0 et 20");
+                    alert.initOwner(btn.getScene().getWindow());
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText("Erreur");
+                alert.setContentText("Vous n'avez pas rentré de note pour l'informatique");
+                alert.initOwner(btn.getScene().getWindow());
+                alert.showAndWait();
             }
 
             if (!txtNom3.getText().isEmpty()) {
-                double geo = Double.parseDouble(txtNom3.getText());
-                if (cb1.isSelected()) {
-                    if (Geo1.isSelected()) {
+                if ((geo >= 0 && geo <= 20)) {
+                    if (cb1.isSelected()) {
+                        if (Geo1.isSelected()) {
+                            moyenne += geo;
+                        } else if (Geo2.isSelected()) {
+                            moyenne += 2 * geo;
+                        } else if (Geo3.isSelected()) {
+                            moyenne += 3 * geo;
+                        }
+                        count += 1;
+                    } else {
                         moyenne += geo;
-                    } else if (Geo2.isSelected()) {
-                        moyenne += 2 * geo;
-                    } else if (Geo3.isSelected()) {
-                        moyenne += 3 * geo;
+                        count += 1;
                     }
-                } else moyenne += geo;
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Erreur");
+                    alert.setContentText("La note de géographie doit être comprise entre 0 et 20");
+                    alert.initOwner(btn.getScene().getWindow());
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText("Erreur");
+                alert.setContentText("Vous n'avez pas rentré de note pour la géographie");
+                alert.initOwner(btn.getScene().getWindow());
+                alert.showAndWait();
             }
 
             if (!txtNom4.getText().isEmpty()) {
-                double autre = Double.parseDouble(txtNom4.getText());
-                if (cb1.isSelected()) {
-                    if (combo.getValue().equals("Latin")) {
-                        moyenne += 2 * autre;
-                    } else if (combo.getValue().equals("Grec")) {
-                        moyenne += 2 * autre;
-                    } else if (combo.getValue().equals("Sport")) {
+                if ((autre >= 0 && autre <= 20)) {
+                    if (cb1.isSelected()) {
+                        if (combo.getValue().equals("Latin")) {
+                            moyenne += 2 * autre;
+                        } else if (combo.getValue().equals("Grec")) {
+                            moyenne += 2 * autre;
+                        } else if (combo.getValue().equals("Sport")) {
+                            moyenne += autre;
+                        }
+                    } else {
                         moyenne += autre;
                     }
-                    moyenne /= 5;
                 } else {
-                    moyenne += autre;
-                    moyenne /= 5;
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Erreur");
+                    alert.setContentText("La note de l'autre matière doit être comprise entre 0 et 20");
+                    alert.initOwner(btn.getScene().getWindow());
+                    alert.showAndWait();
                 }
             }
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Moyenne");
-            alert.setHeaderText("Moyenne");
-            alert.setContentText("Votre moyenne est de " + moyenne);
-            alert.showAndWait();
+            System.out.println(count);
+            if (count == 4) {
+                moyenne = moyenne / 5;
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Moyenne");
+                alert.setHeaderText("Moyenne");
+                alert.setContentText("Votre moyenne est de " + moyenne);
+                alert.initOwner(btn.getScene().getWindow());
+                alert.showAndWait();
+            }
         });
     }
 }
