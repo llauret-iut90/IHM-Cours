@@ -183,7 +183,7 @@ public class HelloWorld extends Application {
     }
 
     private void initWidgets() {
-        txtNom = new TextField("0");
+        txtNom = new TextField();
         group = new ToggleGroup();
         rb1 = new RadioButton("1");
         rb1.setToggleGroup(group);
@@ -193,7 +193,7 @@ public class HelloWorld extends Application {
         rb3 = new RadioButton("3");
         rb3.setToggleGroup(group);
 
-        txtNom1 = new TextField("0");
+        txtNom1 = new TextField();
         group1 = new ToggleGroup();
         Math1 = new RadioButton("1");
         Math1.setToggleGroup(group1);
@@ -203,7 +203,7 @@ public class HelloWorld extends Application {
         Math3 = new RadioButton("3");
         Math3.setToggleGroup(group1);
 
-        txtNom2 = new TextField("0");
+        txtNom2 = new TextField();
         group2 = new ToggleGroup();
         Info1 = new RadioButton("1");
         Info1.setToggleGroup(group2);
@@ -213,7 +213,7 @@ public class HelloWorld extends Application {
         Info3 = new RadioButton("3");
         Info3.setToggleGroup(group2);
 
-        txtNom3 = new TextField("0");
+        txtNom3 = new TextField();
         group3 = new ToggleGroup();
         Geo1 = new RadioButton("1");
         Geo1.setToggleGroup(group3);
@@ -235,14 +235,9 @@ public class HelloWorld extends Application {
             double moyenne = 0;
             int count = 0;
 
-            double anglais = Double.parseDouble(txtNom.getText());
-            double math = Double.parseDouble(txtNom1.getText());
-            double info = Double.parseDouble(txtNom2.getText());
-            double geo = Double.parseDouble(txtNom3.getText());
-            double autre = Double.parseDouble(txtNom4.getText());
-
             if (!txtNom.getText().isEmpty()) {
-                if ((anglais >= 0 && anglais <= 20)) {
+                double anglais = Double.parseDouble(txtNom.getText());
+                if (anglais >= 0 && anglais <= 20) {
                     if (cb1.isSelected()) {
                         if (rb1.isSelected()) {
                             moyenne += anglais;
@@ -274,7 +269,8 @@ public class HelloWorld extends Application {
             }
 
             if (!txtNom1.getText().isEmpty()) {
-                if ((math >= 0 && math <= 20)) {
+                double math = Double.parseDouble(txtNom1.getText());
+                if (math >= 0 && math <= 20) {
                     if (cb1.isSelected()) {
                         if (Math1.isSelected()) {
                             moyenne += math;
@@ -292,7 +288,7 @@ public class HelloWorld extends Application {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Erreur");
                     alert.setHeaderText("Erreur");
-                    alert.setContentText("La note de mathématiques doit être comprise entre 0 et 20");
+                    alert.setContentText("La note des mathématiques doit être comprise entre 0 et 20");
                     alert.initOwner(btn.getScene().getWindow());
                     alert.showAndWait();
                 }
@@ -306,7 +302,8 @@ public class HelloWorld extends Application {
             }
 
             if (!txtNom2.getText().isEmpty()) {
-                if ((info >= 0 && info <= 20)) {
+                double info = Double.parseDouble(txtNom2.getText());
+                if (info >= 0 && info <= 20) {
                     if (cb1.isSelected()) {
                         if (Info1.isSelected()) {
                             moyenne += info;
@@ -338,7 +335,8 @@ public class HelloWorld extends Application {
             }
 
             if (!txtNom3.getText().isEmpty()) {
-                if ((geo >= 0 && geo <= 20)) {
+                double geo = Double.parseDouble(txtNom3.getText());
+                if (geo >= 0 && geo <= 20) {
                     if (cb1.isSelected()) {
                         if (Geo1.isSelected()) {
                             moyenne += geo;
@@ -370,7 +368,8 @@ public class HelloWorld extends Application {
             }
 
             if (!txtNom4.getText().isEmpty()) {
-                if ((autre >= 0 && autre <= 20)) {
+                double autre = Double.parseDouble(txtNom4.getText());
+                if (autre >= 0 && autre <= 20) {
                     if (cb1.isSelected()) {
                         if (combo.getValue().equals("Latin")) {
                             moyenne += 2 * autre;
@@ -386,7 +385,7 @@ public class HelloWorld extends Application {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Erreur");
                     alert.setHeaderText("Erreur");
-                    alert.setContentText("La note de l'autre matière doit être comprise entre 0 et 20");
+                    alert.setContentText("La note de l'option doit être comprise entre 0 et 20");
                     alert.initOwner(btn.getScene().getWindow());
                     alert.showAndWait();
                 }
