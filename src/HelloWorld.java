@@ -22,6 +22,9 @@ public class HelloWorld extends Application {
     private CheckBox cb1;
     private Button btn;
     private VBox vbox;
+    private Menu option, aide;
+    private MenuItem V1, V2, commentCaMarche, aPropos;
+    private BorderPane borderPane;
 
     public static void main(String[] args) {
         launch(args);
@@ -46,7 +49,11 @@ public class HelloWorld extends Application {
 //        txtNom4.setTextFormatter(formatter);
 
         root = new StackPane(); // Initialisation du conteneur
-        primaryStage.getIcons().add(new Image("file:icone-fenetre.gif"));
+
+//        primaryStage.getIcons().add(new Image("file:icone-fenetre.gif"));
+        Image image = new Image("file:icone-fenetre.gif");
+        primaryStage.getIcons().add(image);
+
         primaryStage.setTitle("[IHM]"); // Titre de la fenêtre
 
         initWidgets();
@@ -60,6 +67,15 @@ public class HelloWorld extends Application {
     }
 
     private void addWidgetsToSceneV1() {
+
+        option = new Menu("Option");
+        aide = new Menu("Aide");
+
+        V1 = new MenuItem("V1");
+        V2 = new MenuItem("V2");
+        commentCaMarche = new MenuItem("Comment ça marche ?");
+        aPropos = new MenuItem("A propos");
+
         // Conteneurs pour chaque matière
         FlowPane flowPaneAnglais = new FlowPane();
         flowPaneAnglais.getChildren().addAll(
@@ -121,6 +137,19 @@ public class HelloWorld extends Application {
     }
 
     private void addWidgetsToSceneV2() {
+        MenuBar menuBar = new MenuBar();
+        option = new Menu("Option");
+        aide = new Menu("Aide");
+
+        V1 = new MenuItem("V1");
+        V2 = new MenuItem("V2");
+        commentCaMarche = new MenuItem("Comment ça marche ?");
+        aPropos = new MenuItem("A propos");
+        aide.getItems().addAll(commentCaMarche, aPropos);
+        option.getItems().addAll(aide, V1, V2);
+
+        menuBar.getMenus().addAll(option);
+
         GridPane gridPane = new GridPane();
         gridPane.add(new Label("Anglais"), 0, 0);
         gridPane.add(txtNom, 1, 0);
@@ -179,10 +208,28 @@ public class HelloWorld extends Application {
         gridPane.setMaxWidth(400);
         gridPane.maxHeight(270);
         hbox4.setAlignment(Pos.CENTER);
+
+//        borderPane.setTop(menuBar);
+//        borderPane.setCenter(vbox);
+//        root.getChildren().addAll(borderPane);
+
 //        root.getChildren().addAll(gridPane, flowPaneBtn, hbox4, vbox);
     }
 
     private void initWidgets() {
+//        option = new Menu("Option");
+//        aide = new Menu("Aide");
+//
+//        V1 = new MenuItem("V1");
+//        V2 = new MenuItem("V2");
+//        commentCaMarche = new MenuItem("Comment ça marche ?");
+//        aPropos = new MenuItem("A propos");
+
+        V1 = new MenuItem("V1");
+        V2 = new MenuItem("V2");
+        commentCaMarche = new MenuItem("Comment ça marche ?");
+        aPropos = new MenuItem("A propos");
+
         txtNom = new TextField();
         group = new ToggleGroup();
         rb1 = new RadioButton("1");
