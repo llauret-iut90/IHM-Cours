@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
 
 public class HelloWorld extends Application {
     // Déclaration des champs de classe
@@ -28,13 +29,30 @@ public class HelloWorld extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Image image = new Image("file:icone-fenetre.gif");
+
+//        // Formattage des champs de texte pour ne pas pouvoir entrer autre chose qu'un nombre
+//        TextFormatter<String> formatter = new TextFormatter<>(change -> {
+//            String newText = change.getControlNewText();
+//            if (newText.matches("\\d")) {
+//                return change;
+//            }
+//            return null;
+//        });
+//
+//        txtNom.setTextFormatter(formatter);
+//        txtNom1.setTextFormatter(formatter);
+//        txtNom2.setTextFormatter(formatter);
+//        txtNom3.setTextFormatter(formatter);
+//        txtNom4.setTextFormatter(formatter);
+
         root = new StackPane(); // Initialisation du conteneur
+        primaryStage.getIcons().add(new Image("file:icone-fenetre.gif"));
+        primaryStage.setTitle("[IHM]"); // Titre de la fenêtre
+
         initWidgets();
         addWidgetsToSceneV2();
         addListener();
-        primaryStage.setTitle("[IHM]"); // Titre de la fenêtre
-        primaryStage.getIcons().add(image);
+
         primaryStage.setScene(new Scene(vbox, 450, 270)); // Mettre le conteneur comme contenu de la fenêtre.
         primaryStage.setResizable(false); // Fenêtre non redimensionnable
         primaryStage.show();
@@ -164,7 +182,7 @@ public class HelloWorld extends Application {
     }
 
     private void initWidgets() {
-        txtNom = new TextField();
+        txtNom = new TextField("0");
         group = new ToggleGroup();
         rb1 = new RadioButton("1");
         rb1.setToggleGroup(group);
@@ -174,7 +192,7 @@ public class HelloWorld extends Application {
         rb3 = new RadioButton("3");
         rb3.setToggleGroup(group);
 
-        txtNom1 = new TextField();
+        txtNom1 = new TextField("0");
         group1 = new ToggleGroup();
         Math1 = new RadioButton("1");
         Math1.setToggleGroup(group1);
@@ -184,7 +202,7 @@ public class HelloWorld extends Application {
         Math3 = new RadioButton("3");
         Math3.setToggleGroup(group1);
 
-        txtNom2 = new TextField();
+        txtNom2 = new TextField("0");
         group2 = new ToggleGroup();
         Info1 = new RadioButton("1");
         Info1.setToggleGroup(group2);
@@ -194,7 +212,7 @@ public class HelloWorld extends Application {
         Info3 = new RadioButton("3");
         Info3.setToggleGroup(group2);
 
-        txtNom3 = new TextField();
+        txtNom3 = new TextField("0");
         group3 = new ToggleGroup();
         Geo1 = new RadioButton("1");
         Geo1.setToggleGroup(group3);
@@ -206,54 +224,84 @@ public class HelloWorld extends Application {
 
         combo = new ComboBox<>(FXCollections.observableArrayList("Latin", "Grec", "Sport"));
         combo.setValue("Latin");
-        txtNom4 = new TextField();
+        txtNom4 = new TextField("0");
         cb1 = new CheckBox("Prendre en considération les coefficients");
         btn = new Button("Moyenne");
     }
 
-    private void addListener(){
+    private void addListener() {
         btn.setOnAction(event -> {
             double moyenne = 0;
-            if (rb1.isSelected()) {
-                moyenne += 1;
-            } else if (rb2.isSelected()) {
-                moyenne += 2;
-            } else if (rb3.isSelected()) {
-                moyenne += 3;
+
+            if (!txtNom.getText().isEmpty()) {
+                double anglais = Double.parseDouble(txtNom.getText());
+                if (cb1.isSelected()) {
+                    if (rb1.isSelected()) {
+                        moyenne += anglais;
+                    } else if (rb2.isSelected()) {
+                        moyenne += 2 * anglais;
+                    } else if (rb3.isSelected()) {
+                        moyenne += 3 * anglais;
+                    }
+                } else moyenne += anglais;
             }
-            if (Math1.isSelected()) {
-                moyenne += 1;
-            } else if (Math2.isSelected()) {
-                moyenne += 2;
-            } else if (Math3.isSelected()) {
-                moyenne += 3;
+
+            if (!txtNom1.getText().isEmpty()) {
+                double math = Double.parseDouble(txtNom1.getText());
+                if (cb1.isSelected()) {
+                    if (Math1.isSelected()) {
+                        moyenne += math;
+                    } else if (Math2.isSelected()) {
+                        moyenne += 2 * math;
+                    } else if (Math3.isSelected()) {
+                        moyenne += 3 * math;
+                    }
+                } else moyenne += math;
             }
-            if (Info1.isSelected()) {
-                moyenne += 1;
-            } else if (Info2.isSelected()) {
-                moyenne += 2;
-            } else if (Info3.isSelected()) {
-                moyenne += 3;
+
+            if (!txtNom2.getText().isEmpty()) {
+                double info = Double.parseDouble(txtNom2.getText());
+                if (cb1.isSelected()) {
+                    if (Info1.isSelected()) {
+                        moyenne += info;
+                    } else if (Info2.isSelected()) {
+                        moyenne += 2 * info;
+                    } else if (Info3.isSelected()) {
+                        moyenne += 3 * info;
+                    }
+                } else moyenne += info;
             }
-            if (Geo1.isSelected()) {
-                moyenne += 1;
-            } else if (Geo2.isSelected()) {
-                moyenne += 2;
-            } else if (Geo3.isSelected()) {
-                moyenne += 3;
+
+            if (!txtNom3.getText().isEmpty()) {
+                double geo = Double.parseDouble(txtNom3.getText());
+                if (cb1.isSelected()) {
+                    if (Geo1.isSelected()) {
+                        moyenne += geo;
+                    } else if (Geo2.isSelected()) {
+                        moyenne += 2 * geo;
+                    } else if (Geo3.isSelected()) {
+                        moyenne += 3 * geo;
+                    }
+                } else moyenne += geo;
             }
-            if (cb1.isSelected()) {
-                if (combo.getValue().equals("Latin")) {
-                    moyenne += 2;
-                } else if (combo.getValue().equals("Grec")) {
-                    moyenne += 2;
-                } else if (combo.getValue().equals("Sport")) {
-                    moyenne += 1;
+
+            if (!txtNom4.getText().isEmpty()) {
+                double autre = Double.parseDouble(txtNom4.getText());
+                if (cb1.isSelected()) {
+                    if (combo.getValue().equals("Latin")) {
+                        moyenne += 2 * autre;
+                    } else if (combo.getValue().equals("Grec")) {
+                        moyenne += 2 * autre;
+                    } else if (combo.getValue().equals("Sport")) {
+                        moyenne += autre;
+                    }
+                    moyenne /= 5;
+                } else {
+                    moyenne += autre;
+                    moyenne /= 5;
                 }
-                moyenne = moyenne / 5;
-            } else {
-                moyenne = moyenne / 4;
             }
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Moyenne");
             alert.setHeaderText("Moyenne");
